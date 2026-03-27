@@ -37,13 +37,4 @@ public class PlayerController : MonoBehaviour
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
         transform.Rotate(Vector3.up, horizontalInput * turnSpeed * Time.deltaTime);
     }
-
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 200, 30), $"Time: {timeRemaining:F1}s");
-        if (isGameOver)
-        {
-            GUI.Label(new Rect(10, 40, 200, 30), "Time's Up!");
-        }
-    }
 }
