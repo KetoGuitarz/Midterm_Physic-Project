@@ -1,19 +1,30 @@
 using UnityEngine;
 
-public class WreckingBall : MonoBehaviour
+public class Pendulum : MonoBehaviour
 {
     public Rigidbody rb;
     public float force = 100f;
+    public float switchInterval = 2f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private float timer = 0f;
+    private int direction = 1;
+
     void Start()
     {
         rb.AddForce(Vector3.left * force, ForceMode.Impulse);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
 
+        if (timer >= switchInterval)
+        {
+            timer = 0f;
+            direction *= -1;
+
+            rb.linearVelocity = Vector3.zero;
+            rb.AddForce(Vector3.left * force * direction, ForceMode.Impulse);
+        }
     }
 }

@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
 
         horizontalInput = moveAction.ReadValue<Vector2>().x;
-        transform.Translate(horizontalInput * moveSpeed * Time.deltaTime * Vector3.forward);
+        transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
         transform.Rotate(Vector3.up, horizontalInput * turnSpeed * Time.deltaTime);
 
         if (shootAction.triggered)
