@@ -17,10 +17,6 @@ public class SpawnDog : MonoBehaviour
             transform.position.y,
             Random.Range(-spawnRangeZ, spawnRangeZ)
         );
-        Instantiate(
-            dogPrefabs,
-            spawnPos,
-            dogPrefabs.transform.rotation
-        );
+        Instantiate(dogPrefabs, spawnPos, dogPrefabs.transform.rotation);
     }
 }
