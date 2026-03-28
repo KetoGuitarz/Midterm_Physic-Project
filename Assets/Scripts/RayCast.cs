@@ -7,6 +7,7 @@ public class RayCast : MonoBehaviour
     [SerializeField] GameObject shootPointPrefab;
     [SerializeField] GameObject hitPointPrefab;
     [SerializeField] float shootRange = 50f;
+    [SerializeField] GameObject door;
 
     private InputAction shootAction;
 
@@ -18,7 +19,6 @@ public class RayCast : MonoBehaviour
     void Update()
     {
         Aim();
-
         if (shootAction.triggered)
         {
             Shoot();
@@ -28,7 +28,6 @@ public class RayCast : MonoBehaviour
     void Aim()
     {
         RaycastHit hit;
-
         if (Physics.Raycast(shootPoint.position, transform.forward, out hit, shootRange))
         {
             Debug.DrawRay(shootPoint.position, transform.forward * hit.distance, Color.red);
@@ -44,20 +43,34 @@ public class RayCast : MonoBehaviour
         RaycastHit hit;
         Instantiate(shootPointPrefab, shootPoint.position, Quaternion.identity);
 
-        if (Physics.Raycast(shootPoint.position, transform.right, out hit, shootRange))
+        if (Physics.Raycast(shootPoint.position, transform.forward, out hit, shootRange))
         {
             Instantiate(hitPointPrefab, hit.point, Quaternion.identity);
-
             Debug.Log("Hit: " + hit.collider.name);
 
-            /*if (hit.collider.CompareTag("Enemy"))
+            if (hit.collider.CompareTag("Obstacle"))
             {
-                hit.collider.GetComponent<Enemy>()?.TakeDamage();
+                Destroy(hit.collider.gameObject);
             }
-            else if (hit.collider.CompareTag("Obstacle"))
+
+            if (hit.collider.CompareTag("Enemy"))
             {
-                hit.collider.GetComponent<Obstacle>()?.DamageTorque();
-            }*/
+                Destroy(hit.collider.gameObject);
+
+                if (GameObject.FindGameObjectsWithTag("Enemy").Length <= 1)
+                {
+                    OpenDoor();
+                }
+            }
+        }
+    }
+
+    void OpenDoor()
+    {
+        if (door != null)
+        {
+            door.transform.Translate(Vector3.down * 5f);
+            Debug.Log("ประตูเปิดแล้ว!");
         }
     }
 }
