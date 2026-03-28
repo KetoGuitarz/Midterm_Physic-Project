@@ -13,7 +13,6 @@ public class Dog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Transform c = GetComponent<Transform>();
-        c.transform.Translate(speed * Time.deltaTime * Vector3.forward);
+        transform.Translate(speed * Time.deltaTime * Vector3.forward);
     }
 }
