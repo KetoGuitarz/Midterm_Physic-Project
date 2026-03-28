@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,8 +8,10 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 10.0f;
     public float turnSpeed = 180.0f;
     public float gameTime = 30.0f;
-
     public GameObject bulletPrefab;
+
+    //[Header("Scene Settings")]
+    //public string nextSceneName = "Level02";
 
     private float horizontalInput = 0;
     private float timeRemaining;
@@ -37,10 +40,7 @@ public class PlayerController : MonoBehaviour
             isGameOver = true;
         }
 
-        if (isGameOver)
-        {
-            return;
-        }
+        if (isGameOver) return;
 
         horizontalInput = moveAction.ReadValue<Vector2>().x;
         transform.Translate(moveSpeed * Time.deltaTime * Vector3.forward);
@@ -51,4 +51,12 @@ public class PlayerController : MonoBehaviour
             Instantiate(bulletPrefab, transform.position, bulletPrefab.transform.rotation);
         }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Door"))
+    //    {
+    //        SceneManager.LoadScene(nextSceneName);
+    //    }
+    //}
 }
