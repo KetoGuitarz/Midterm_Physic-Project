@@ -3,7 +3,6 @@ using UnityEngine;
 public class SpawnDog : MonoBehaviour
 {
     public GameObject dogPrefabs;
-    public float spawnRangeZ = 5;
 
     void Start()
     {
@@ -15,7 +14,7 @@ public class SpawnDog : MonoBehaviour
         Vector3 spawnPos = new(
             transform.position.x,
             transform.position.y,
-            Random.Range(-spawnRangeZ, spawnRangeZ)
+            Random.Range(60, 80)
         );
         Instantiate(dogPrefabs, spawnPos, dogPrefabs.transform.rotation);
     }
